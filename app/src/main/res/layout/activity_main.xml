@@ -1,17 +1,199 @@
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:tools="http://schemas.android.com/tools" android:layout_width="match_parent"
-    android:layout_height="match_parent" android:paddingLeft="@dimen/activity_horizontal_margin"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:paddingBottom="@dimen/activity_vertical_margin"
+    android:paddingLeft="@dimen/activity_horizontal_margin"
     android:paddingRight="@dimen/activity_horizontal_margin"
     android:paddingTop="@dimen/activity_vertical_margin"
-    android:paddingBottom="@dimen/activity_vertical_margin" tools:context=".MainActivity">
+    tools:context=".MainActivity">
 
     <EditText
-        android:layout_width="wrap_content"
+        android:id="@+id/kms_diarios"
+        android:layout_width="70dp"
         android:layout_height="wrap_content"
-        android:inputType="number"
-        android:ems="10"
-        android:id="@+id/editText"
         android:layout_alignParentTop="true"
         android:layout_centerHorizontal="true"
-        android:layout_marginTop="30dp" />
+        android:ems="10"
+        android:hint="Kms."
+        android:inputType="number" />
+
+    <TableLayout
+        android:id="@+id/tableLayout"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/kms_diarios"
+        android:layout_marginTop="10dp">
+
+
+        <TableRow
+            android:layout_width="fill_parent"
+            android:layout_height="fill_parent">
+
+            <TextView
+                android:layout_column="1"
+                android:text="Des." />
+
+            <TextView
+                android:layout_column="2"
+                android:text="Com." />
+
+            <TextView
+                android:layout_column="3"
+                android:text="Cen." />
+
+            <TextView
+                android:layout_column="4"
+                android:text="Per." />
+
+        </TableRow>
+
+        <TableRow>
+
+            <TextView android:text="Nacional" />
+
+            <CheckBox
+                android:id="@+id/cb_na_1"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_column="1" />
+
+            <CheckBox
+                android:id="@+id/cb_na_2"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_column="2" />
+
+            <CheckBox
+                android:id="@+id/cb_na_3"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_column="3" />
+
+            <CheckBox
+                android:id="@+id/cb_na_4"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_column="4" />
+
+        </TableRow>
+
+        <TableRow>
+
+            <TextView android:text="Extranjero   " />
+
+            <CheckBox
+                android:id="@+id/cb_ex_1"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_column="1" />
+
+            <CheckBox
+                android:id="@+id/cb_ex_2"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_column="2" />
+
+            <CheckBox
+                android:id="@+id/cb_ex_3"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_column="3" />
+
+            <CheckBox
+                android:id="@+id/cb_ex_4"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_column="4" />
+
+        </TableRow>
+
+    </TableLayout>
+
+    <LinearLayout
+        android:id="@+id/linearLayout"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true"
+        android:layout_below="@+id/tableLayout"
+        android:orientation="horizontal">
+
+        <TextView
+            android:id="@+id/textView"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="( Mensualidad con "
+            android:textAppearance="?android:attr/textAppearanceSmall" />
+
+        <EditText
+            android:id="@+id/km_del_mes"
+            android:layout_width="70dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:ems="10"
+            android:inputType="number"
+            android:text="12000"
+            android:textAlignment="center" />
+
+        <TextView
+            android:id="@+id/textView3"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text=" Kms. )"
+            android:textAppearance="?android:attr/textAppearanceSmall" />
+    </LinearLayout>
+
+    <TableLayout
+        android:layout_width="fill_parent"
+        android:layout_height="fill_parent"
+        android:id="@+id/tabla_resultados"
+        android:layout_below="@+id/linearLayout"
+        android:layout_marginTop="8dp"
+        android:visibility="gone">
+        <TableRow>
+            <Button
+                android:text="A 0,117 Euros/km : "
+                android:textAppearance="?android:attr/textAppearanceMedium"
+                />
+            <TextView
+                android:id="@+id/txt_resultado_2"
+                android:text="resultado"
+                android:textAppearance="?android:attr/textAppearanceMedium"/>
+        </TableRow>
+        <TableRow>
+            <TextView
+            android:text="Resultado a Convenio : "
+            android:textAppearance="?android:attr/textAppearanceMedium"/>
+            <TextView
+                android:id="@+id/txt_resultado_1"
+                android:text="resultado"
+                android:textAppearance="?android:attr/textAppearanceMedium"/>
+        </TableRow>
+        <TableRow>
+            <TextView
+                android:text="Diferencia : "
+                android:textAppearance="?android:attr/textAppearanceMedium"
+                android:layout_gravity="end"/>
+            <TextView
+                android:id="@+id/txt_resultado_3"
+                android:text="resultado"
+                android:textAppearance="?android:attr/textAppearanceMedium"/>
+        </TableRow>
+
+
+    </TableLayout>
+
+    <ImageButton
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/btn_calculadora"
+        android:src="@drawable/calculator_8x"
+        android:layout_alignParentTop="true"
+        android:layout_alignParentRight="true"
+        android:layout_alignParentEnd="true"
+        android:onClick="onClicCalculadora"
+        android:focusable="false" />
+
+
 </RelativeLayout>
