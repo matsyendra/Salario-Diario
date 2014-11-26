@@ -12,6 +12,7 @@ import android.widget.EditText;
 import android.widget.ImageButton;
 import android.widget.TableLayout;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.example.jose.myapplication.util.Cc;
 import com.example.jose.myapplication.util.TextCambioListener;
@@ -20,10 +21,10 @@ import com.example.jose.myapplication.util.TextCambioListener;
 public class MainActivity extends ActionBarActivity {
     private EditText km_diarios, km_del_mes;
     private CheckBox na_1, na_2, na_3, na_4, ex_1, ex_2, ex_3, ex_4;
-    private Button precio_km;
+    private Button btn_precio_km;
     ImageButton btn_calculadora;
     private TableLayout tabla_resultados;
-    private TextView resultado1,resultado2,resultado3;
+    private TextView resultado1,resultado2,resultado3,acumula_dieta;
     private Double dieta;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -44,7 +45,7 @@ public class MainActivity extends ActionBarActivity {
                                                 }else{
                                                     dieta = Redondeo(dieta - Cc.NA_1);
                                                 }
-                                               resultado1.setText(String.valueOf(dieta));
+                                                acumula_dieta.setText(String.format("( %s € )", dieta));
                                            }
                                        }
        );
@@ -57,7 +58,7 @@ public class MainActivity extends ActionBarActivity {
                                                 }else{
                                                     dieta = Redondeo(dieta - Cc.NA_2);
                                                 }
-                                                resultado1.setText(String.valueOf(dieta));
+                                                acumula_dieta.setText(String.format("( %s € )", dieta));
                                             }
                                         }
         );
@@ -70,7 +71,7 @@ public class MainActivity extends ActionBarActivity {
                                                 }else{
                                                     dieta = Redondeo(dieta - Cc.NA_3);
                                                 }
-                                                resultado1.setText(String.valueOf(dieta));
+                                                acumula_dieta.setText(String.format("( %s € )", dieta));
                                             }
                                         }
         );
@@ -83,7 +84,7 @@ public class MainActivity extends ActionBarActivity {
                                                           }else{
                                                               dieta = Redondeo(dieta - Cc.NA_4);
                                                           }
-                                                          resultado1.setText(String.valueOf(dieta));
+                                                          acumula_dieta.setText(String.format("( %s € )", dieta));
                                                       }
                                                   }
         );
@@ -96,7 +97,7 @@ public class MainActivity extends ActionBarActivity {
                                                           }else{
                                                               dieta = Redondeo(dieta - Cc.EX_1);
                                                           }
-                                                          resultado1.setText(String.valueOf(dieta));
+                                                          acumula_dieta.setText(String.format("( %s € )", dieta));
                                                       }
                                                   }
         );
@@ -109,7 +110,7 @@ public class MainActivity extends ActionBarActivity {
                                                 }else{
                                                     dieta = Redondeo(dieta - Cc.EX_2);
                                                 }
-                                                resultado1.setText(String.valueOf(dieta));
+                                                acumula_dieta.setText(String.format("( %s € )", dieta));
                                             }
                                         }
         );
@@ -122,7 +123,7 @@ public class MainActivity extends ActionBarActivity {
                                                 }else{
                                                     dieta = Redondeo(dieta - Cc.EX_3);
                                                 }
-                                                resultado1.setText(String.valueOf(dieta));
+                                                acumula_dieta.setText(String.format("( %s € )", dieta));
                                             }
                                         }
         );
@@ -135,13 +136,13 @@ public class MainActivity extends ActionBarActivity {
                                                 }else{
                                                     dieta = Redondeo(dieta - Cc.EX_4);
                                                 }
-                                                resultado1.setText(String.valueOf(dieta));
+                                                acumula_dieta.setText(String.format("( %s € )", dieta));
                                             }
                                         }
         );
 
 
-
+        //
 
     }
 
@@ -170,6 +171,10 @@ public class MainActivity extends ActionBarActivity {
         resultado1 = (TextView) findViewById(R.id.txt_resultado_1);
         resultado2 = (TextView) findViewById(R.id.txt_resultado_2);
         resultado3 = (TextView) findViewById(R.id.txt_resultado_3);
+        acumula_dieta = (TextView) findViewById(R.id.acumula_dieta);
+
+        btn_precio_km = (Button) findViewById(R.id.btn_precio_km);
+
     }
 
     @Override
@@ -202,6 +207,10 @@ public class MainActivity extends ActionBarActivity {
         resultado2.setText(String.valueOf(RedondeoDosCifras((Integer.parseInt(km_diarios.getText().toString())*Cc.a0117))));
         resultado3.setText(String.valueOf(RedondeoDosCifras(((Integer.parseInt(km_diarios.getText().toString())*Cc.a0117))-(dieta+kmsVdietas+kmsFdietas))));
 
+    }
+    public  void onClickPrecioKm(View view){
+        //Toast.makeText(this,"onclick ok",Toast.LENGTH_SHORT).show();
+        //btn_precio_km.setText("cambia el texto");
     }
     public double Redondeo(double numero)
     {
