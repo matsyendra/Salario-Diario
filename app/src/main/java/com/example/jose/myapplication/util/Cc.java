@@ -20,20 +20,7 @@ public class Cc {
 
     public static final double a0117 = 0.117;
 
-    public Double pMedio_kilometroFijo (int km_mensuales){
-        if (km_mensuales!=0 && km_mensuales <=10000){
-            return KF_me_10;}
-            else{
-            return (10000*KF_me_10+((km_mensuales-10000)*KF_MA_10))/km_mensuales;
-        }
-    }
-    public Double pMedio_kilometroDieta (int km_mensuales){
-        if (km_mensuales!=0 && km_mensuales <=10000){
-            return KD_me_10;}
-        else{
-            return (10000*KD_me_10+((km_mensuales-10000)*KD_MA_10))/km_mensuales;
-        }
-    }
+
 
 
 
