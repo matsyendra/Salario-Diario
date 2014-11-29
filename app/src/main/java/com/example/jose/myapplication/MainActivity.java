@@ -1,8 +1,8 @@
 package com.example.jose.myapplication;
 
 import android.content.Context;
-import android.support.v7.app.ActionBarActivity;
 import android.os.Bundle;
+import android.support.v7.app.ActionBarActivity;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
@@ -14,7 +14,6 @@ import android.widget.EditText;
 import android.widget.ImageButton;
 import android.widget.TableLayout;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import com.example.jose.myapplication.util.Cc;
 import com.example.jose.myapplication.util.TextCambioListener;
@@ -22,12 +21,14 @@ import com.example.jose.myapplication.util.TextCambioListener;
 
 public class MainActivity extends ActionBarActivity {
     private EditText km_diarios, km_del_mes;
+    private int kilometrosDiarios, kilometrosMensuales;
     private CheckBox na_1, na_2, na_3, na_4, ex_1, ex_2, ex_3, ex_4;
     private Button btn_precio_km;
     ImageButton btn_calculadora;
     private TableLayout tabla_resultados;
     private TextView resultado1,resultado2,resultado3,acumula_dieta;
-    private Double dieta;
+    private static Double Desayuno = 0d,Comida = 0d,Cena = 0d, Pernoctacion = 0d;
+    private Double dieta = Desayuno + Comida +Cena+ Pernoctacion;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -38,14 +39,16 @@ public class MainActivity extends ActionBarActivity {
 
 
 
-       na_1.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+        //<editor-fold desc="LISTENER DE LOS CHECKBOX">
+        na_1.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
 
                                            @Override
                                            public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
-                                                if (isChecked){
-                                                    dieta = Redondeo(dieta + Cc.NA_1);
-                                                }else{
-                                                    dieta = Redondeo(dieta - Cc.NA_1);
+                                                if (isChecked && ex_1.isChecked()) {
+                                                    ex_1.setChecked(false);
+                                                    Desayuno = Cc.NA_1;
+                                                }else if (isChecked){
+                                                    Desayuno = Cc.NA_1;
                                                 }
                                                 acumula_dieta.setText(String.format("( %s € )", dieta));
                                                valorizar();
@@ -102,14 +105,17 @@ public class MainActivity extends ActionBarActivity {
 
             @Override
             public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
-                if (isChecked){
-                    dieta = Redondeo(dieta + Cc.EX_1);
+                Desayuno = Cc.EX_1;
+                if (isChecked && na_1.isChecked()) {
+                    na_1.setChecked(false);
+                    dieta = Redondeo(dieta + Desayuno);
+                }else if (isChecked){
+                    dieta = Redondeo(dieta + Desayuno);
                 }else{
-                    dieta = Redondeo(dieta - Cc.EX_1);
+                    dieta = Redondeo(dieta - Desayuno);
                 }
                 acumula_dieta.setText(String.format("( %s € )", dieta));
                 valorizar();
-
             }
         }
         );
@@ -145,6 +151,7 @@ public class MainActivity extends ActionBarActivity {
 
                                             @Override
                                             public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
+
                                                 if (isChecked){
                                                     dieta = Redondeo(dieta + Cc.EX_4);
                                                 }else{
@@ -155,9 +162,7 @@ public class MainActivity extends ActionBarActivity {
                                             }
                                         }
         );
-
-
-        //
+        //</editor-fold>
 
     }
 
@@ -222,19 +227,23 @@ public class MainActivity extends ActionBarActivity {
     }
 
     private void valorizar() {
+        if (km_diarios.getText().toString().equals("")){
+            kilometrosDiarios = 0;
+        }else{
+            kilometrosDiarios = Integer.parseInt(km_diarios.getText().toString());
+        }
+        if (km_del_mes.getText().toString().equals("")){}
+        Double kmsFdietas = pMedio_kilometroFijo(Integer.parseInt(km_del_mes.getText().toString()))*kilometrosDiarios;
+        Double kmsVdietas = pMedio_kilometroDieta(Integer.parseInt(km_del_mes.getText().toString()))*kilometrosDiarios;
 
-        Double kmsFdietas = pMedio_kilometroFijo(Integer.parseInt(km_del_mes.getText().toString()))*Integer.parseInt(km_diarios.getText().toString());
-        Double kmsVdietas = pMedio_kilometroDieta(Integer.parseInt(km_del_mes.getText().toString()))*Integer.parseInt(km_diarios.getText().toString());
 
-
-        resultado1.setText(String.valueOf(RedondeoDosCifras(dieta+kmsVdietas+kmsFdietas)));
-        resultado2.setText(String.valueOf(RedondeoDosCifras((Integer.parseInt(km_diarios.getText().toString())* Cc.a0117))));
-        resultado3.setText(String.valueOf(RedondeoDosCifras(((Integer.parseInt(km_diarios.getText().toString())*Cc.a0117))-(dieta+kmsVdietas+kmsFdietas))));
+        resultado1.setText(String.valueOf(RedondeoDosCifras(dieta+kmsVdietas+kmsFdietas))+" €");
+        resultado2.setText(String.valueOf(RedondeoDosCifras(kilometrosDiarios* Cc.a0117))+" €");
+        resultado3.setText(String.valueOf(RedondeoDosCifras(kilometrosDiarios*Cc.a0117-(dieta+kmsVdietas+kmsFdietas)))+" €");
     }
 
     public  void onClickPrecioKm(View view){
-        //Toast.makeText(this,"onclick ok",Toast.LENGTH_SHORT).show();
-        //btn_precio_km.setText("cambia el texto");
+        //TODO: Accion de cambio de precio de kilómetro
     }
     public double Redondeo(double numero)
     {
