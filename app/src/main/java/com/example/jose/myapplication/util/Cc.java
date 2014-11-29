@@ -17,8 +17,4 @@ public class Cc {
     public static final double KF_MA_10 = 0.0312;
     public static final double KD_me_10 = 0.0251;
     public static final double KD_MA_10 = 0.0454;
-
-    public static final double a0117 = 0.117;
-
-
 }
