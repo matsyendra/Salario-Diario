@@ -41,7 +41,7 @@ public class MainActivity extends ActionBarActivity {
         dieta = 0d;
         SharedPreferences prefs = getSharedPreferences("preferencias",
                 MODE_PRIVATE);
-        p_k = prefs.getFloat("preciokm", 0);
+        p_k = prefs.getFloat("preciokm", 11.7f);
         preciokilometro.setText(String.valueOf(p_k));
 
 
